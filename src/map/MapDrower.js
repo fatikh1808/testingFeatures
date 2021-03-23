@@ -4,7 +4,6 @@ import * as topojson from "topojson-client";
 import anime from 'animejs';
 import { Country } from "./Country";
 import Hammer from "hammerjs"
-import * as dat from 'dat.gui';
 import topology from "./world_map_web_merc.json"
 
 export default class MapDrawer extends React.Component {
@@ -12,7 +11,7 @@ export default class MapDrawer extends React.Component {
         super(props);
         this.scene = new THREE.Scene();            
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); 
-        this.isShaderOn = false;           
+        this.isShaderOn = true;           
         this.renderer = new THREE.WebGLRenderer();
         this.uniforms = {
                     time: { type: "f", value: .1 },
@@ -79,7 +78,8 @@ export default class MapDrawer extends React.Component {
         let CLICKED = null;
 
         document.addEventListener("click", onDocumentClick.bind(this), false);
-        function onDocumentClick(event) {                                                        
+        function onDocumentClick(event) {
+            console.log(event)
             mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
             mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
             raycaster.setFromCamera(mouse, this.camera);
@@ -116,51 +116,51 @@ export default class MapDrawer extends React.Component {
             }
         }
 
-        // document.addEventListener("wheel", onDocumentMouseWheel, false);
-        // function onDocumentMouseWheel(event) {
-        //     let direction = Math.sign(event.deltaY);
-        //     let moveToZ = this.camera.position.z + (direction * 40);
-        //     moveToZ = THREE.MathUtils.clamp(moveToZ, 30, 200);
+        document.addEventListener("wheel", onDocumentMouseWheel.bind(this), false);
+        function onDocumentMouseWheel(event) {
+            let direction = Math.sign(event.deltaY);
+            let moveToZ = this.camera.position.z + (direction * 40);
+            moveToZ = THREE.MathUtils.clamp(moveToZ, 30, 200);
 
-        //     anime({
-        //         targets: this.cameraUpdatePos,
-        //         z: moveToZ,
-        //         duration: 500,
-        //         easing: "easeOutQuad"
-        //     })
-        // }
+            anime({
+                targets: this.cameraUpdatePos,
+                z: moveToZ,
+                duration: 500,
+                easing: "easeOutQuad"
+            })
+        }
 
-        // document.addEventListener("mousemove", onMouseMove.bind(this), false);
-        // function onMouseMove(event) {
-        //     event.preventDefault();                    
+        document.addEventListener("mousemove", onMouseMove.bind(this), false);
+        function onMouseMove(event) {
+            event.preventDefault();                    
 
-        //     mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
-        //     mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
+            mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
+            mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
 
-        //     if(this.isShaderOn)
-        //         return;
+            if(this.isShaderOn)
+                return;
 
-        //     raycaster.setFromCamera(mouse, this.camera);
+            raycaster.setFromCamera(mouse, this.camera);
 
-        //     let intersects = raycaster.intersectObjects(this.raycastObjs);
+            let intersects = raycaster.intersectObjects(this.raycastObjs);
 
-        //     if (intersects.length > 0) {
-        //         if (INTERSECTED && INTERSECTED !== CLICKED) {
-        //             INTERSECTED.material.color.set(INTERSECTED.userData.shapeColor);
-        //         }
+            if (intersects.length > 0) {
+                if (INTERSECTED && INTERSECTED !== CLICKED) {
+                    INTERSECTED.material.color.set(INTERSECTED.userData.shapeColor);
+                }
 
-        //         INTERSECTED = intersects[0].object;
+                INTERSECTED = intersects[0].object;
 
-        //         if (INTERSECTED !== CLICKED) {
-        //             INTERSECTED.material.color.setHex(0x666666);
-        //         }
+                if (INTERSECTED !== CLICKED) {
+                    INTERSECTED.material.color.setHex(0x666666);
+                }
 
-        //     } else {
-        //         if (INTERSECTED && INTERSECTED !== CLICKED) {
-        //             INTERSECTED.material.color.set(INTERSECTED.userData.shapeColor);
-        //         }
-        //     } 
-        // }
+            } else {
+                if (INTERSECTED && INTERSECTED !== CLICKED) {
+                    INTERSECTED.material.color.set(INTERSECTED.userData.shapeColor);
+                }
+            } 
+        }
 
         let hammertime = new Hammer(window);
         let lastScale = 1;
@@ -226,149 +226,22 @@ export default class MapDrawer extends React.Component {
             }
         });
 
-        // window.addEventListener("resize", onWindowResize, false);
-        // function onWindowResize() {
-        //     this.camera.aspect = window.innerWidth / window.innerHeight;
-        //     this.camera.updateProjectionMatrix();
+        window.addEventListener("resize", onWindowResize.bind(this), false);
+        function onWindowResize() {
+            this.camera.aspect = window.innerWidth / window.innerHeight;
+            this.camera.updateProjectionMatrix();
 
-        //     this.renderer.setSize(window.innerWidth, window.innerHeight);
-        // }
+            this.renderer.setSize(window.innerWidth, window.innerHeight);
+        }
     }
-
-    // createGUI() {
-    //     let Test = {
-    //         stagger: function (zPosition) {
-    //             let staggerObjs = this.raycastObjs.map((obj) => {
-    //                 return obj.position
-    //             });
-    //             let staggerLines = this.lineObjs.map((obj) => {
-    //                 return obj.position
-    //             });
-
-    //             anime({targets: staggerObjs, z: zPosition, delay: anime.stagger(25), easing: "easeInQuad"})
-
-    //             anime({targets: staggerLines, z: zPosition, delay: anime.stagger(25), easing: "easeOutQuad"})
-    //         },
-    //         staggerIn: function () {
-    //             this.stagger(0);
-    //         },
-    //         staggerOut: function () {
-    //             this.stagger(300);
-    //         },
-    //         randomColors: function () {                        
-    //             for(const shape of this.raycastObjs) {
-    //                 let color = Math.random() * 0xffffff;
-    //                 if(this.isShaderOn) 
-    //                     shape.material = new THREE.MeshBasicMaterial({color: color});
-    //                 shape.material.color.set(color); 
-    //                 shape.userData.shapeColor = color;
-    //             }
-    //             for(const line of this.lineObjs) {
-    //                 let color = Math.random() * 0xffffff;
-    //                 if(this.isShaderOn) 
-    //                     line.material = new THREE.LineBasicMaterial({color: color});
-
-    //                 line.material.color.set(color);                            
-    //                 line.userData.lineColor = color;
-    //             }
-    //             this.scene.background.set(Math.random() * 0xffffff);
-    //             this.isShaderOn = false;
-    //         },
-    //         neonMap: function () {                        
-    //             for(const shape of this.raycastObjs) {
-    //                 let color = 0x000000;
-    //                 if(this.isShaderOn) 
-    //                     shape.material = new THREE.MeshBasicMaterial({color: color});
-    //                 shape.material.color.set(color); 
-    //                 shape.userData.shapeColor = color;
-    //             }
-    //             for(const line of this.lineObjs) {
-    //                 let color = Math.random() * 0xffffff;
-    //                 if(this.isShaderOn) 
-    //                     line.material = new THREE.LineBasicMaterial({color: color});
-
-    //                 line.material.color.set(color);                            
-    //                 line.userData.lineColor = color;
-    //             }
-    //             this.scene.background.set(0x000000);
-    //             this.isShaderOn = false;
-    //         },
-    //         turnShaderOn: function() {
-    //             this.isShaderOn = true;
-    //             for(const shape of this.raycastObjs) {                            
-    //                 let center = new THREE.Vector3();
-    //                 shape.geometry.boundingBox.getCenter(center);
-    //                 let centerArray = []
-    //                 center.toArray(centerArray);
-    //                 shape.geometry.setAttribute( 'center', new THREE.Float32BufferAttribute( centerArray, 3 ) );
-
-    //                 shape.material = new THREE.ShaderMaterial({
-    //                     uniforms: this.uniforms,
-    //                     vertexShader: document.getElementById('vertexShader').textContent,
-    //                     fragmentShader: document.getElementById('stateShader').textContent
-    //                 });
-    //             }
-
-    //             for(const line of this.lineObjs) {                            
-    //                 line.material = new THREE.ShaderMaterial({
-    //                     uniforms: this.uniforms,
-    //                     vertexShader: document.getElementById('vertexShader').textContent,
-    //                     fragmentShader: document.getElementById('lineShader').textContent
-    //                 });
-    //             }             
-
-    //         },
-    //         backgroundColor: "#" + this.scene.background.getHexString(),
-    //         shapeColor: "#000000",
-    //         lineColor: "#ff0000"
-
-    //     }
-    //     let gui = new dat.GUI();
-    //     gui.width = 265;
-    //     let folder1 = gui.addFolder("Test Animations");
-    //     folder1.add(Test, "staggerIn").name("Stagger In");
-    //     folder1.add(Test, "staggerOut").name("Stagger Out");
-        
-    //     let folder2 = gui.addFolder("Color Settings");
-    //     folder2.addColor(Test, "backgroundColor")
-    //         .name("Background Color")
-    //         .onChange(() => {                        
-    //             this.scene.background = new THREE.Color(Test.backgroundColor);
-    //         });
-    //     folder2.addColor(Test, "shapeColor")
-    //         .name("Shape Color")
-    //         .onChange(() => {         
-    //             if(this.isShaderOn) return;               
-    //             for(const shape of this.raycastObjs) {
-    //                 shape.material.color.set(Test.shapeColor);                            
-    //                 shape.userData.shapeColor = Test.shapeColor;
-    //             }
-    //         });
-    //     folder2.addColor(Test, "lineColor")
-    //         .name("Line Color")
-    //         .onChange(() => {
-    //             if(this.isShaderOn) return;                        
-    //             for(const shape of this.lineObjs) {
-    //                 shape.material.color.set(Test.lineColor);                            
-    //                 shape.userData.lineColor = Test.lineColor;
-    //             }
-    //         });
-    //     folder2.add(Test, "randomColors").name("Random Colors");  
-    //     folder2.add(Test, "neonMap").name("Neon Map");                
-    //     folder2.add(Test, "turnShaderOn").name("Shader Test");
-    //     folder1.open();
-    //     folder2.open();
-    // }
 
     render() {
         this.createEnv()
         this.animate()
         this.setupEventListeners()
-        // this.createGUI()
 
         return (
             <div>
-                Test
             </div>
         )
     }

@@ -2,6 +2,7 @@ import React from "react";
 import { useWebGLContext, useShader, useProgram } from '@react-vertex/core'
 
 import MapDrawer from "./map/MapDrower";
+import "./map.css";
 
 export default function App() {
 
@@ -45,7 +46,18 @@ export default function App() {
 
     return (
         <>
-            <div class="country_name"></div>
+            <div className="country_name" style={{
+                position: "fixed",
+                bottom: "10%",
+                left: "10%",
+                fontSize: "4rem",
+                color: "white",
+                userSelect: "none",
+                textShadow: "-1px 1px 0 #000, 1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000",
+                fontFamily: "'Roboto', sans-serif"
+                }}>
+
+                </div>
             <MapDrawer/>
         </>
     )
