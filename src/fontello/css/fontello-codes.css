@@ -1,0 +1,7 @@
+
+.guz-heart:before { content: '\e800'; } /* '' */
+.guz-left-open:before { content: '\e801'; } /* '' */
+.guz-right-open:before { content: '\e802'; } /* '' */
+.guz-mail-alt:before { content: '\f0e0'; } /* '' */
+.guz-mail-squared:before { content: '\f199'; } /* '' */
+.guz-paypal:before { content: '\f1ed'; } /* '' */

@@ -1,14 +1,18 @@
-import "./App.css";
-import "rsuite/dist/styles/rsuite-default.css";
-import { Button } from "rsuite";
-import { Icon } from "rsuite";
+import React from "react";
+import ReactMarkdown from "react-markdown";
+const remarkClasses = require("./remarkClasses");
 
 function App() {
-    const test = `highlight> Fotikh`;
+    const markdowen =
+        "# Heading \nfhighlight> Node with classname <bhighlight. <div>Render HTML as text</div>. \n\nfnoindex> Node with classname noindex <bnoindex. kwfwewejdoiwe ewdoiwejd wedjewodi \n\nfext> Node with classname <bext \nkiller fotikh yp bitches";
 
     return (
-        <div className="App">
-            <Button>killer</Button>
+        <div>
+            <ReactMarkdown
+                plugins={[remarkClasses()]}
+                children={markdowen}
+                allowDangerousHtml
+            />
         </div>
     );
 }
