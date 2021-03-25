@@ -10074,6 +10074,13 @@ react-shader@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-shader/-/react-shader-1.0.0.tgz#0fde7a6668c61009554fc642763546ad718f3b2b"
   integrity sha512-49Xey2Ok9EjReiaXwyqqAJ9Dx25PAilFFj9dk5+Vp2CPWqQlXo/XukzK9qWTKgF2u60uti5vXhCRWj05wzwGRw==
 
+react-vfx@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-vfx/-/react-vfx-0.4.1.tgz#6647d90dc8557f82ebcd653ecb3dcd418a5a1727"
+  integrity sha512-SMUE6QtZk7G7+Fqhqgl0hY2/ExxmkjUViesgZFgXGoZEIh4TlOW2pdw/0sBPcnN0ywU4aAMj07SdbykOTcVyFQ==
+  dependencies:
+    three "^0.111.0"
+
 react-virtualized@^9.21.0:
   version "9.22.3"
   resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.22.3.tgz#f430f16beb0a42db420dbd4d340403c0de334421"
@@ -11704,6 +11711,11 @@ three@0.115.0:
   version "0.115.0"
   resolved "https://registry.yarnpkg.com/three/-/three-0.115.0.tgz#540d800c381b9da2334c024f0fbe4d23f84eb05e"
   integrity sha512-mAV2Ky3RdcbdSbR9capI+tKLvRldWYxd4151PZTT/o7+U2jh9Is3a4KmnYwzyUAhB2ZA3pXSgCd2DOY4Tj5kow==
+
+three@^0.111.0:
+  version "0.111.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.111.0.tgz#9cedb73e79b7f6bf2440cb67a273f883faa923b6"
+  integrity sha512-AcTqyGJ3H75AIusOuADy0LsP958QKQwm/YhABHFMzd6RFXPNVay1rlSbbG6WYv7KM72G2THMMwqbjQd4dVHMkQ==
 
 throat@^5.0.0:
   version "5.0.0"

@@ -1,5 +1,5 @@
 import React from "react";
-import { useWebGLContext, useShader, useProgram } from '@react-vertex/core'
+import * as VFX from "react-vfx";
 
 import MapDrawer from "./map/MapDrower";
 import "./map.css";
@@ -21,7 +21,7 @@ export default function App() {
         }
     `
 
-    const fragment = `
+    const metal = `
         uniform float time;
         uniform vec2 resolution;
         varying vec4 v_position;
@@ -36,15 +36,9 @@ export default function App() {
         }          
     `
 
-    const onUpdate = (delta, elapsed) => console.log(elapsed, delta);
-
-    // const gl = useWebGLContext()
-    // const vertShader = useShader(gl, vertex, true) // compile shaders somewhere
-    // const fragShader = useShader(gl, fragment, true)
-
-    // useProgram(gl, vertShader, fragShader)
-
     return (
+        // <VFX.VFXProvider>
+        //     <VFX.VFXSpan>
         <>
             <div className="country_name" style={{
                 position: "fixed",
@@ -57,8 +51,10 @@ export default function App() {
                 fontFamily: "'Roboto', sans-serif"
                 }}>
 
-                </div>
+            </div>
             <MapDrawer/>
         </>
+            /* </VFX.VFXSpan>
+        </VFX.VFXProvider> */
     )
 }

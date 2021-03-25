@@ -5,7 +5,8 @@ import anime from 'animejs';
 import { Country } from "./Country";
 import Hammer from "hammerjs"
 import topology from "./world_map_web_merc.json"
-
+import * as dat from 'dat.gui';
+import TestClass from "./TestClass";
 export default class MapDrawer extends React.Component {
     constructor(props) {
         super(props);
@@ -25,7 +26,7 @@ export default class MapDrawer extends React.Component {
         this.createEnv = this.createEnv.bind(this);
         this.animate = this.animate.bind(this);
         this.setupEventListeners = this.setupEventListeners.bind(this);
-        // this.createGUI = this.createGUI.bind(this);
+        this.createGUI = this.createGUI.bind(this);
     }
 
     createEnv() {
@@ -79,7 +80,6 @@ export default class MapDrawer extends React.Component {
 
         document.addEventListener("click", onDocumentClick.bind(this), false);
         function onDocumentClick(event) {
-            console.log(event)
             mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
             mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
             raycaster.setFromCamera(mouse, this.camera);
@@ -101,10 +101,10 @@ export default class MapDrawer extends React.Component {
 
                     CLICKED = intersects[0].object;
                     CLICKED.material.color.set(0x164B91);
-
+                    
                     document.querySelector(".country_name").innerText = CLICKED.userData.properties.NAME;
 
-                    } else {
+                } else {
 
                     if (CLICKED) {
                         CLICKED.material.color.set(CLICKED.userData.shapeColor);
@@ -162,69 +162,69 @@ export default class MapDrawer extends React.Component {
             } 
         }
 
-        let hammertime = new Hammer(window);
-        let lastScale = 1;
-        hammertime.get('pinch').set({ enable: true });
-        hammertime.on("pinchstart pinchin pinchout pinchend", function(ev) {
-            console.log(ev.center)
-            let moveToZ = this.camera.position.z;
+        // let hammertime = new Hammer(window);
+        // let lastScale = 1;
+        // hammertime.get('pinch').set({ enable: true });
+        // hammertime.on("pinchstart pinchin pinchout pinchend", function(ev) {
+        //     console.log(ev.center)
+        //     let moveToZ = this.camera.position.z;
             
-            if (ev.scale < lastScale) {
-                moveToZ += 1 * (1/ev.scale);
-            } else if (ev.scale > lastScale) {
-                moveToZ -= 1 * ev.scale;
-            }
-            lastScale = ev.scale;
+        //     if (ev.scale < lastScale) {
+        //         moveToZ += 1 * (1/ev.scale);
+        //     } else if (ev.scale > lastScale) {
+        //         moveToZ -= 1 * ev.scale;
+        //     }
+        //     lastScale = ev.scale;
 
-            if(ev.type === "pinchend") {                        
-                lastScale = 1;
-            }    
+        //     if(ev.type === "pinchend") {                        
+        //         lastScale = 1;
+        //     }    
 
-            this.cameraUpdatePos.z = THREE.MathUtils.clamp(moveToZ, 30, 200);;
-        });
+        //     this.cameraUpdatePos.z = THREE.MathUtils.clamp(moveToZ, 30, 200);;
+        // });
 
         
 
         let startPos = new THREE.Vector3();
         let currentPos = new THREE.Vector3(); 
         let delta = new THREE.Vector3();
-        hammertime.on("panstart panmove", function(ev) {
-            if(ev.type === "panstart") {                        
-                startPos.set( 
-                    (ev.srcEvent.clientX / window.innerWidth) * 2 - 1, 
-                    -(ev.srcEvent.clientY / window.innerHeight) * 2 + 1, 
-                    0.5 
-                );
+        // hammertime.on("panstart panmove", function(ev) {
+        //     if(ev.type === "panstart") {                        
+        //         startPos.set( 
+        //             (ev.srcEvent.clientX / window.innerWidth) * 2 - 1, 
+        //             -(ev.srcEvent.clientY / window.innerHeight) * 2 + 1, 
+        //             0.5 
+        //         );
 
-                startPos.unproject( this.camera );
-                startPos.sub(this.camera.position).normalize();                        
-                let distance = - this.camera.position.z / startPos.z;
-                startPos.multiplyScalar( distance )
+        //         startPos.unproject( this.camera );
+        //         startPos.sub(this.camera.position).normalize();                        
+        //         let distance = - this.camera.position.z / startPos.z;
+        //         startPos.multiplyScalar( distance )
                 
-                startPos.x += this.cameraUpdatePos.x;
-                startPos.y += this.cameraUpdatePos.y;
-            }
+        //         startPos.x += this.cameraUpdatePos.x;
+        //         startPos.y += this.cameraUpdatePos.y;
+        //     }
 
-            if (ev.type === "panmove") 
-            {                    
-                currentPos.set( 
-                    (ev.srcEvent.clientX / window.innerWidth) * 2 - 1, 
-                    -(ev.srcEvent.clientY / window.innerHeight) * 2 + 1, 
-                    0.5 
-                );         
+        //     if (ev.type === "panmove") 
+        //     {                    
+        //         currentPos.set( 
+        //             (ev.srcEvent.clientX / window.innerWidth) * 2 - 1, 
+        //             -(ev.srcEvent.clientY / window.innerHeight) * 2 + 1, 
+        //             0.5 
+        //         );         
                 
 
-                currentPos.unproject( this.camera );
-                currentPos.sub(this.camera.position).normalize();
-                let distance = - this.camera.position.z / currentPos.z;
-                currentPos.multiplyScalar( distance );
+        //         currentPos.unproject( this.camera );
+        //         currentPos.sub(this.camera.position).normalize();
+        //         let distance = - this.camera.position.z / currentPos.z;
+        //         currentPos.multiplyScalar( distance );
                 
-                delta.subVectors(startPos, currentPos);                                                 
+        //         delta.subVectors(startPos, currentPos);                                                 
 
-                this.cameraUpdatePos.x = THREE.MathUtils.clamp(delta.x, -200, 200);
-                this.cameraUpdatePos.y = THREE.MathUtils.clamp(delta.y, -50, 140); //Y clamp is strange because Antartica has been removed, but the coordinates stated the same
-            }
-        });
+        //         this.cameraUpdatePos.x = THREE.MathUtils.clamp(delta.x, -200, 200);
+        //         this.cameraUpdatePos.y = THREE.MathUtils.clamp(delta.y, -50, 140); //Y clamp is strange because Antartica has been removed, but the coordinates stated the same
+        //     }
+        // });
 
         window.addEventListener("resize", onWindowResize.bind(this), false);
         function onWindowResize() {
@@ -235,10 +235,139 @@ export default class MapDrawer extends React.Component {
         }
     }
 
+    createGUI() {
+    // let Test = {
+    //     stagger: function (zPosition) {
+    //         let staggerObjs = this.raycastObjs.map((obj) => {
+    //             return obj.position
+    //         });
+    //         let staggerLines = this.lineObjs.map((obj) => {
+    //             return obj.position
+    //         });
+
+    //         anime({targets: staggerObjs, z: zPosition, delay: anime.stagger(25), easing: "easeInQuad"})
+
+    //         anime({targets: staggerLines, z: zPosition, delay: anime.stagger(25), easing: "easeOutQuad"})
+    //     },
+    //     staggerIn: function () {
+    //         this.stagger(0);
+    //     },
+    //     staggerOut: function () {
+    //         this.stagger(300);
+    //     },
+    //     randomColors: function () {                        
+    //         for(const shape of this.raycastObjs) {
+    //             let color = Math.random() * 0xffffff;
+    //             if(this.isShaderOn) 
+    //                 shape.material = new THREE.MeshBasicMaterial({color: color});
+    //             shape.material.color.set(color); 
+    //             shape.userData.shapeColor = color;
+    //         }
+    //         for(const line of this.lineObjs) {
+    //             let color = Math.random() * 0xffffff;
+    //             if(this.isShaderOn) 
+    //                 line.material = new THREE.LineBasicMaterial({color: color});
+
+    //             line.material.color.set(color);                            
+    //             line.userData.lineColor = color;
+    //         }
+    //         this.scene.background.set(Math.random() * 0xffffff);
+    //         this.isShaderOn = false;
+    //     },
+    //     neonMap: function () {                        
+    //         for(const shape of this.raycastObjs) {
+    //             let color = 0x000000;
+    //             if(this.isShaderOn) 
+    //                 shape.material = new THREE.MeshBasicMaterial({color: color});
+    //             shape.material.color.set(color); 
+    //             shape.userData.shapeColor = color;
+    //         }
+    //         for(const line of this.lineObjs) {
+    //             let color = Math.random() * 0xffffff;
+    //             if(this.isShaderOn) 
+    //                 line.material = new THREE.LineBasicMaterial({color: color});
+
+    //             line.material.color.set(color);                            
+    //             line.userData.lineColor = color;
+    //         }
+    //         this.scene.background.set(0x000000);
+    //         this.isShaderOn = false;
+    //     },
+    //     turnShaderOn: function() {
+    //         this.isShaderOn = true;
+    //         for(const shape of this.raycastObjs) {                            
+    //             let center = new THREE.Vector3();
+    //             shape.geometry.boundingBox.getCenter(center);
+    //             let centerArray = []
+    //             center.toArray(centerArray);
+    //             shape.geometry.setAttribute( 'center', new THREE.Float32BufferAttribute( centerArray, 3 ) );
+
+    //             shape.material = new THREE.ShaderMaterial({
+    //                 uniforms: this.uniforms,
+    //                 vertexShader: document.getElementById('vertexShader').textContent,
+    //                 fragmentShader: document.getElementById('stateShader').textContent
+    //             });
+    //         }
+
+    //         for(const line of this.lineObjs) {                            
+    //             line.material = new THREE.ShaderMaterial({
+    //                 uniforms: this.uniforms,
+    //                 vertexShader: document.getElementById('vertexShader').textContent,
+    //                 fragmentShader: document.getElementById('lineShader').textContent
+    //             });
+    //         }             
+
+    //     },
+    //     backgroundColor: "#" + this.scene.background.getHexString(),
+    //     shapeColor: "#000000",
+    //     lineColor: "#ff0000"
+
+    // }
+
+    //     const f = new TestClass(this.scene, this.raycastObjs, this.lineObjs, this.isShaderOn)
+
+    //     let gui = new dat.GUI();
+    //     gui.width = 265;
+    //     let folder1 = gui.addFolder("Test Animations");
+    //     folder1.add(f, "staggerIn").name("Stagger In");
+    //     folder1.add(f, "staggerOut").name("Stagger Out");
+        
+    //     let folder2 = gui.addFolder("Color Settings");
+    //     folder2.addColor(f, "backgroundColor")
+    //         .name("Background Color")
+    //         .onChange(() => {                        
+    //             this.scene.background = new THREE.Color(Test.backgroundColor);
+    //         });
+    //     folder2.addColor(f, "shapeColor")
+    //         .name("Shape Color")
+    //         .onChange(() => {         
+    //             if(this.isShaderOn) return;               
+    //             for(const shape of this.raycastObjs) {
+    //                 shape.material.color.set(Test.shapeColor);                            
+    //                 shape.userData.shapeColor = Test.shapeColor;
+    //             }
+    //         });
+    //     folder2.addColor(Test, "lineColor")
+    //         .name("Line Color")
+    //         .onChange(() => {
+    //             if(this.isShaderOn) return;                        
+    //             for(const shape of this.lineObjs) {
+    //                 shape.material.color.set(Test.lineColor);                            
+    //                 shape.userData.lineColor = Test.lineColor;
+    //             }
+    //         });
+    //     folder2.add(f, "randomColors").name("Random Colors");  
+    //     folder2.add(f, "neonMap").name("Neon Map");                
+    //     folder2.add(f, "turnShaderOn").name("Shader Test");
+    //     folder1.open();
+    //     folder2.open();
+    }
+
     render() {
         this.createEnv()
         this.animate()
         this.setupEventListeners()
+        this.createGUI()
 
         return (
             <div>
