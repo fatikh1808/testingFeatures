@@ -24,6 +24,7 @@
     "react-scripts": "4.0.1",
     "react-shader": "^1.0.0",
     "react-vfx": "^0.4.1",
+    "react-vk": "^5.0.2",
     "rehype-stringify": "^8.0.0",
     "remark": "^13.0.0",
     "remark-classes": "^0.0.2",

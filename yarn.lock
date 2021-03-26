@@ -10093,6 +10093,11 @@ react-virtualized@^9.21.0:
     prop-types "^15.7.2"
     react-lifecycles-compat "^3.0.4"
 
+react-vk@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-vk/-/react-vk-5.0.2.tgz#c590cebde365f66f154ec338fdd58cfd1d004ca6"
+  integrity sha512-fjlznPH3o4lsOyKUzOXyWmfIELtd/CR6ZOeJsOhIH3TMI/T7QH8acdEWJH9Bz2Ivd9pa/MN9WMr00G9F25TDUg==
+
 react@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
