@@ -26,6 +26,7 @@
     "react-markdown": "^5.0.3",
     "react-scripts": "4.0.1",
     "react-shader": "^1.0.0",
+    "react-twitter-widgets": "^1.9.5",
     "react-vfx": "^0.4.1",
     "rehype-stringify": "^8.0.0",
     "remark": "^13.0.0",
