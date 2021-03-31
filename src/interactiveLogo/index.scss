@@ -1,5 +1,10 @@
 $animationDuration: 1s;
 $delay: 1s;
+$baseColor: #d49967;
+$circleSize: 3%;
+$lineWidth: 1px;
+
+//8,9s delay for number and text animation top-left
 
 .container {
     transform-style: preserve-3d;
@@ -8,41 +13,43 @@ $delay: 1s;
     position: relative;
 
     .line {
+        background-color: $baseColor;
+        position: absolute;
+        opacity: 0;
+        &_vertical {
+            width: $lineWidth;
+        }
+
+        &_horizontal {
+            height: $lineWidth;
+        }
         &__bottom {
             &-right {
                 &-vertical {
-                    width: 1px;
-                    height: 92px;
-                    background-color: #d49967;
-                    position: absolute;
+                    height: 27%;
                     top: 63%;
                     left: 63%;
+                    animation: $animationDuration ease-in-out bottom-right-vertical $delay * 11;
+                    animation-fill-mode: forwards;
                 }
                 &-horizontal {
-                    width: 92px;
-                    height: 1px;
-                    background-color: #d49967;
-                    position: absolute;
+                    width: 30%;
                     top: 90%;
                     left: 63%;
+                    animation: $animationDuration ease-in-out bottom-right-horizontal $delay * 12;
+                    animation-fill-mode: forwards;
                 }
             }
 
             &-left {
                 &-vertical {
-                    width: 1px;
-                    height: 89px;
-                    background-color: #d49967;
-                    position: absolute;
+                    height: 26%;
                     top: 65%;
                     left: 35%;
                 }
                 &-horizontal {
-                    width: 86px;
-                    height: 1px;
-                    background-color: #d49967;
-                    position: absolute;
-                    top: 91%;
+                    width: 25%;
+                    top: 90.7%;
                     left: 10%;
                 }
             }
@@ -51,280 +58,237 @@ $delay: 1s;
         &__top {
             &-right {
                 &-vertical {
-                    width: 1px;
-                    height: 100px;
-                    background-color: #d49967;
-                    position: absolute;
-                    top: 310px;
-                    left: 386px;
+                    height: 28%;
+                    top: 11%;
+                    left: 66%;
                 }
                 &-horizontal {
-                    width: 1px;
-                    height: 100px;
-                    background-color: #d49967;
-                    position: absolute;
-                    top: 310px;
-                    left: 386px;
+                    width: 30%;
+                    top: 11%;
+                    left: 66%;
                 }
             }
 
             &-left {
                 &-vertical {
-                    width: 1px;
-                    height: 100px;
-                    background-color: #d49967;
-                    position: absolute;
-                    top: 310px;
-                    left: 386px;
+                    height: 24%;
+                    top: 14%;
+                    left: 34%;
+                    animation: $animationDuration ease-in-out top-left-vertical $delay * 6;
+                    animation-fill-mode: forwards;
                 }
                 &-horizontal {
-                    width: 1px;
-                    height: 100px;
-                    background-color: #d49967;
-                    position: absolute;
-                    top: 310px;
-                    left: 386px;
+                    width: 30%;
+                    top: 14%;
+                    left: 4%;
+                    animation: $animationDuration ease-in-out top-left-horizontal $delay * 5;
+                    animation-fill-mode: forwards;
                 }
             }
         }
     }
 
-
     .circle {
+        height: $circleSize;
+        width: $circleSize;
+        border-radius: 50%;
+        background-color: $baseColor;
+        position: absolute;
         opacity: 0;
-        animation: $animationDuration ease-in-out circle-show $delay*4;
+        &__top {
+            &-left {
+                top: 36%;
+                left: 32.55%;
+                animation: $animationDuration ease-in-out circle__main-show $delay * 7;
+                animation-fill-mode: forwards;
+            }
+
+            &-right {
+                top: 39%;
+                left: 65%;
+                // animation: $animationDuration ease-in-out circle__main-show $delay * 6;
+                animation-fill-mode: forwards;
+            }
+        }
+
+        &__bottom {
+            &-left {
+                top: 64%;
+                left: 33.6%;
+                // animation: $animationDuration ease-in-out circle__main-show $delay * 7;
+                animation-fill-mode: forwards;
+            }
+
+            &-right {
+                top: 62%;
+                left: 61.5%;
+                animation: $animationDuration ease-in-out circle__main-show $delay * 10;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+    .circle__main {
+        opacity: 0;
+        animation: $animationDuration ease-in-out circle__main-show $delay * 4;
         animation-fill-mode: forwards;
         transform-origin: center;
     }
 
-    .top {
-        &-right {
-            &-info {
-                &__text {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*24;
-                    animation-fill-mode: forwards;
-                }
-                &__title {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*22;
-                    animation-fill-mode: forwards;
-                }
-                &__rect {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*23;
-                    animation-fill-mode: forwards;
-                }
-                &__circle {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*20;
-                    animation-fill-mode: forwards;
-                }
-                &__line {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*21;
-                    animation-fill-mode: forwards;
-                }
-            }
+    .arrow {
+        opacity: 0;
 
-            &-arrow {
-                opacity: 0;
-                animation: $animationDuration ease-in-out move-top-right;
-                animation-fill-mode: forwards;
-                transform-origin: 0% 100%;
-            }
-        }
-
-        &-left{
-            &-info {
-                &__text {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*9;
-                    animation-fill-mode: forwards;
-                }
-                &__title {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*7;
-                    animation-fill-mode: forwards;
-                }
-                &__rect {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*8;
-                    animation-fill-mode: forwards;
-                }
-                &__circle {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*5;
-                    animation-fill-mode: forwards;
-                }
-                &__line {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*6;
-                    animation-fill-mode: forwards;
-                }
-            }
-
-            &-arrow {
-                opacity: 0;
-                animation: $animationDuration ease-in-out move-top-left $delay;
-                animation-fill-mode: forwards;
-                transform-origin: 100% 100%;
-            }
-        }
-    }
-
-    .bottom {
-        &-right{
-            &-info{
-                &__text {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*14;
-                    animation-fill-mode: forwards;
-                }
-                &__title {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*12;
-                    animation-fill-mode: forwards;
-                }
-                &__rect {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*13;
-                    animation-fill-mode: forwards;
-                }
-                &__circle {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*10;
-                    animation-fill-mode: forwards;
-                }
-                &__line {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*11;
-                    animation-fill-mode: forwards;
-                }
-            }
-
-            &-arrow {
-                opacity: 0;
-                animation: $animationDuration ease-in-out move-bottom-right $delay*2;
-                animation-fill-mode: forwards;
-                transform-origin: 0% 0%;
-            }
-        }
-
-        &-left{
-            &:hover {
-                g {
-                    opacity: 1;
-                }
-            }
-
-            &-info {
-                &__text {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*19;
-                    animation-fill-mode: forwards;
-                }
-                &__title {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*17;
-                    animation-fill-mode: forwards;
-                }
-                &__rect {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*18;
-                    animation-fill-mode: forwards;
-                }
-                &__circle {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*15;
-                    animation-fill-mode: forwards;
-                }
-                &__line {
-                    opacity: 0;
-                    animation: $animationDuration ease-in-out info-show $delay*16;
-                    animation-fill-mode: forwards;
-                }
-            }
-
-            &-arrow {
-                opacity: 0;
-                animation: $animationDuration ease-in-out move-bottom-left $delay*3;
-                animation-fill-mode: forwards;
+        &__bottom {
+            &-left {
+                animation: $animationDuration ease-in-out move-bottom-left $delay * 3;
                 transform-origin: 100% 0%;
+                animation-fill-mode: forwards;
+            }
+            &-right {
+                animation: $animationDuration ease-in-out move-bottom-right $delay * 2;
+                transform-origin: 0% 0%;
+                animation-fill-mode: forwards;
+            }
+        }
+
+        &__top {
+            &-left {
+                animation: $animationDuration ease-in-out move-top-left $delay;
+                transform-origin: 100% 100%;
+                animation-fill-mode: forwards;
+            }
+            &-right {
+                animation: $animationDuration ease-in-out move-top-right;
+                transform-origin: 0% 100%;
+                animation-fill-mode: forwards;
             }
         }
     }
-}
 
-@keyframes info-show {
-    0% {
-        opacity: 0;
+    @keyframes top-left-vertical {
+        0% {
+            height: 0%;
+            opacity: 0;
+        }
+        100% {
+            height: 24%;
+            opacity: 1;
+        }
     }
-    100% {
-        opacity: 1;
+    @keyframes top-left-horizontal {
+        0% {
+            width: 0%;
+            opacity: 0;
+        }
+        100% {
+            width: 30%;
+            opacity: 1;
+        }
     }
-}
 
-@keyframes circle-show {
-    0% {
-        opacity: 0;
-        transform: scale(0);
+    @keyframes bottom-right-vertical {
+        0% {
+            height: 0%;
+            opacity: 0;
+        }
+        100% {
+            height: 27%;
+            opacity: 1;
+        }
     }
-    100% {
-        opacity: 1;
-        transform: scale(1);
+    @keyframes bottom-right-horizontal {
+        0% {
+            width: 0%;
+            opacity: 0;
+        }
+        100% {
+            width: 30%;
+            opacity: 1;
+        }
     }
-}
 
+    @keyframes circle-show {
+        0% {
+            height: 0%;
+            width: 0%;
+            opacity: 0;
+        }
+        100% {
+            height: $circleSize;
+            width: $circleSize;
+            opacity: 1;
+        }
+    }
 
-@keyframes move-top-left {
-    0% {
-        opacity: 0;
-        transform: translate3d(-100px, -100px, 100px);
-        transform: scale(2);
+    @keyframes info-show {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
-    100% {
-        opacity: 1;
-        transform: translate3d(0px, 0px, 0px);
-        transform: scale(1);
-    }
-}
 
-@keyframes move-top-right {
-    0% {
-        opacity: 0;
-        transform: translate3d(100px, -100px, 100px);
-        transform: scale(2);
+    @keyframes circle__main-show {
+        0% {
+            opacity: 0;
+            transform: scale(0);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
-    100% {
-        opacity: 1;
-        transform: translate3d(0px, 0px, 0px);
-        transform: scale(1);
-    }
-}
 
-@keyframes move-bottom-right {
-    0% {
-        opacity: 0;
-        transform: translate3d(100px, 100px, 100px);
-        transform: scale(2);
+    @keyframes move-top-left {
+        0% {
+            opacity: 0;
+            transform: translate3d(-100px, -100px, 100px);
+            transform: scale(2);
+        }
+        100% {
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px);
+            transform: scale(1);
+        }
     }
-    100% {
-        opacity: 1;
-        transform: translate3d(0px, 0px, 0px);
-        transform: scale(1);
-    }
-}
 
-@keyframes move-bottom-left {
-    0% {
-        opacity: 0;
-        transform: translate3d(-100px, 100px, 100px);
-        transform: scale(2);
+    @keyframes move-top-right {
+        0% {
+            opacity: 0;
+            transform: translate3d(100px, -100px, 100px);
+            transform: scale(2);
+        }
+        100% {
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px);
+            transform: scale(1);
+        }
     }
-    100% {
-        opacity: 1;
-        transform: translate3d(0px, 0px, 0px);
-        transform: scale(1);
+
+    @keyframes move-bottom-right {
+        0% {
+            opacity: 0;
+            transform: translate3d(100px, 100px, 100px);
+            transform: scale(2);
+        }
+        100% {
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px);
+            transform: scale(1);
+        }
+    }
+
+    @keyframes move-bottom-left {
+        0% {
+            opacity: 0;
+            transform: translate3d(-100px, 100px, 100px);
+            transform: scale(2);
+        }
+        100% {
+            opacity: 1;
+            transform: translate3d(0px, 0px, 0px);
+            transform: scale(1);
+        }
     }
 }

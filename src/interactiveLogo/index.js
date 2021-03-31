@@ -11,14 +11,18 @@ import "./index.scss";
 export default function Interactive() {
     return (
         <div className={"container"} style={{ height: "300px", width: "300px" }}>
-            <div className={"line__bottom-right-vertical"} />
-            <div className={"line__bottom-right-horizontal"} />
-            <div className={"line__bottom-left-vertical"} />
-            <div className={"line__bottom-left-horizontal"}/>
-            <div className={"line__top-right-vertical"} />
-            <div className={"line__top-left-vertical"}/>
-            <div className={"line__top-right-horizontal"}/>
-            <div className={"line__top-left-horizontal"}/>
+            <div className={"line line_vertical line__bottom-right-vertical"} />
+            <div className={"line line_horizontal line__bottom-right-horizontal"} />
+            <div className={"line line_vertical line__bottom-left-vertical"} />
+            <div className={"line line_horizontal line__bottom-left-horizontal"}/>
+            <div className={"line line_vertical line__top-right-vertical"} />
+            <div className={"line line_vertical line__top-left-vertical"}/>
+            <div className={"line line_horizontal line__top-right-horizontal"}/>
+            <div className={"line line_horizontal line__top-left-horizontal"} />
+            <div className={"circle circle__top-left"}/>
+            <div className={"circle circle__top-right"}/>
+            <div className={"circle circle__bottom-left"}/>
+            <div className={"circle circle__bottom-right"}/>
             <svg 
                 id="b0fd4f48-5899-4ac9-8ed1-48ae595ec019"
                 data-name="e3514f70-3084-46fe-9488-1819cbb02961"
