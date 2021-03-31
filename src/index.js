@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./testSvgAnim/loader";
+import App from "./interactiveLogo";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
