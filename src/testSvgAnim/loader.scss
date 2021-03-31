@@ -1,0 +1,36 @@
+$startWidth: 0vh;
+$finishWidth: 100vh;
+
+.preloader {
+    height: 100vh;
+    width: 100vh;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 10px;
+
+    .boom {
+        height: 100vh;
+        width: 100vh;
+        border-radius: 50%;
+        animation: 5s ease-in-out wider infinite;
+        clip-path: circle(0px at center);
+        position: absolute;
+
+        svg {
+            height: 100vh;
+            width: 100vh;
+        }
+    }
+}
+
+@keyframes wider {
+    0% {
+        clip-path: circle($startWidth at center);
+    }
+    50% {
+        clip-path: circle($finishWidth at center);
+    }
+    0% {
+        clip-path: circle($startWidth at center);
+    }
+}
