@@ -3,14 +3,86 @@ $delay: 1s;
 $baseColor: #d49967;
 $circleSize: 3%;
 $lineWidth: 1px;
+$animationDurationTitle: 0.5s;
 
 //8,9s delay for number and text animation top-left
-
+//13,14s delay for number and text animation bottom-right
+//17,18s top-right
+//21,22 bottom-left
 .container {
     transform-style: preserve-3d;
     perspective: 2000px;
     padding: 20px;
     position: relative;
+    margin: 30px;
+
+    .text {
+        position: absolute;
+        font-size: 0.6rem;
+        width: 40%;
+        &__top {
+            &-left {
+                top: 16%;
+                left: -7%;
+                animation: $animationDuration ease-in-out text-rotate $delay * 9;
+                animation-fill-mode: forwards;
+            }
+            &-right {
+                top: 14%;
+                left: 71%;
+                animation: $animationDuration ease-in-out text-rotate $delay * 18;
+                animation-fill-mode: forwards;
+            }
+        }
+        &__bottom {
+            &-left {
+                top: 93%;
+                left: -2%;
+                animation: $animationDuration ease-in-out text-rotate $delay * 22;
+                animation-fill-mode: forwards;
+            }
+            &-right {
+                top: 92%;
+                left: 69%;
+                animation: $animationDuration ease-in-out text-rotate $delay * 14;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+    .title {
+        position: absolute;
+        font-size: 1.5rem;
+        opacity: 0;
+        &__top {
+            &-right {
+                left: 72%;
+                top: 2%;
+                animation: $animationDurationTitle ease-in-out title-show $delay * 17;
+                animation-fill-mode: forwards;
+            }
+            &-left {
+                top: 4%;
+                left: 3%;
+                animation: $animationDurationTitle ease-in-out title-show $delay * 8;
+                animation-fill-mode: forwards;
+            }
+        }
+        &__bottom {
+            &-right {
+                top: 80%;
+                left: 68%;
+                animation: $animationDurationTitle ease-in-out title-show $delay * 13;
+                animation-fill-mode: forwards;
+            }
+            &-left {
+                top: 81%;
+                left: 15%;
+                animation: $animationDurationTitle ease-in-out title-show $delay * 21;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
 
     .line {
         background-color: $baseColor;
@@ -46,11 +118,15 @@ $lineWidth: 1px;
                     height: 26%;
                     top: 65%;
                     left: 35%;
+                    animation: $animationDuration ease-in-out bottom-left-vertical $delay * 20;
+                    animation-fill-mode: forwards;
                 }
                 &-horizontal {
                     width: 25%;
                     top: 90.7%;
                     left: 10%;
+                    animation: $animationDuration ease-in-out bottom-left-horizontal $delay * 20;
+                    animation-fill-mode: forwards;
                 }
             }
         }
@@ -58,14 +134,18 @@ $lineWidth: 1px;
         &__top {
             &-right {
                 &-vertical {
-                    height: 28%;
+                    height: 29%;
                     top: 11%;
                     left: 66%;
+                    animation: $animationDuration ease-in-out top-right-vertical $delay * 15;
+                    animation-fill-mode: forwards;
                 }
                 &-horizontal {
                     width: 30%;
                     top: 11%;
                     left: 66%;
+                    animation: $animationDuration ease-in-out top-right-horizontal $delay * 15;
+                    animation-fill-mode: forwards;
                 }
             }
 
@@ -106,7 +186,7 @@ $lineWidth: 1px;
             &-right {
                 top: 39%;
                 left: 65%;
-                // animation: $animationDuration ease-in-out circle__main-show $delay * 6;
+                animation: $animationDuration ease-in-out circle__main-show $delay * 16;
                 animation-fill-mode: forwards;
             }
         }
@@ -115,7 +195,7 @@ $lineWidth: 1px;
             &-left {
                 top: 64%;
                 left: 33.6%;
-                // animation: $animationDuration ease-in-out circle__main-show $delay * 7;
+                animation: $animationDuration ease-in-out circle__main-show $delay * 19;
                 animation-fill-mode: forwards;
             }
 
@@ -165,6 +245,23 @@ $lineWidth: 1px;
         }
     }
 
+    @keyframes text-rotate {
+        0% {
+            transform: rotateX("90");
+        }
+        100% {
+            transform: rotateX("0");
+        }
+    }
+
+    @keyframes title-show {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
     @keyframes top-left-vertical {
         0% {
             height: 0%;
@@ -185,7 +282,26 @@ $lineWidth: 1px;
             opacity: 1;
         }
     }
-
+    @keyframes top-right-vertical {
+        0% {
+            height: 0%;
+            opacity: 0;
+        }
+        100% {
+            height: 29%;
+            opacity: 1;
+        }
+    }
+    @keyframes top-right-horizontal {
+        0% {
+            width: 0%;
+            opacity: 0;
+        }
+        100% {
+            width: 30%;
+            opacity: 1;
+        }
+    }
     @keyframes bottom-right-vertical {
         0% {
             height: 0%;
@@ -206,7 +322,26 @@ $lineWidth: 1px;
             opacity: 1;
         }
     }
-
+    @keyframes bottom-left-vertical {
+        0% {
+            height: 0%;
+            opacity: 0;
+        }
+        100% {
+            height: 26%;
+            opacity: 1;
+        }
+    }
+    @keyframes bottom-left-horizontal {
+        0% {
+            width: 0%;
+            opacity: 0;
+        }
+        100% {
+            width: 25%;
+            opacity: 1;
+        }
+    }
     @keyframes circle-show {
         0% {
             height: 0%;
@@ -219,7 +354,6 @@ $lineWidth: 1px;
             opacity: 1;
         }
     }
-
     @keyframes info-show {
         0% {
             opacity: 0;
@@ -228,7 +362,6 @@ $lineWidth: 1px;
             opacity: 1;
         }
     }
-
     @keyframes circle__main-show {
         0% {
             opacity: 0;
@@ -239,7 +372,6 @@ $lineWidth: 1px;
             transform: scale(1);
         }
     }
-
     @keyframes move-top-left {
         0% {
             opacity: 0;
@@ -252,7 +384,6 @@ $lineWidth: 1px;
             transform: scale(1);
         }
     }
-
     @keyframes move-top-right {
         0% {
             opacity: 0;
@@ -265,7 +396,6 @@ $lineWidth: 1px;
             transform: scale(1);
         }
     }
-
     @keyframes move-bottom-right {
         0% {
             opacity: 0;
@@ -278,7 +408,6 @@ $lineWidth: 1px;
             transform: scale(1);
         }
     }
-
     @keyframes move-bottom-left {
         0% {
             opacity: 0;
