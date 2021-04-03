@@ -32,7 +32,6 @@ export default function Texts() {
         <>
             {
                 textArray.map((item) => <span className={`text ${item.className}`}>
-
                     <TextyAnim
                         type="mask-top"
                         onEnd={(type) => {
@@ -43,7 +42,6 @@ export default function Texts() {
                         >
                         {item.text}
                     </TextyAnim>
-
                 </span>)
             }
         </>
