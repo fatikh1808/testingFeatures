@@ -1,12 +1,31 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./twitter";
+import App from "./VK/Article";
 import reportWebVitals from "./reportWebVitals";
+import VK from "./VK/VK"
+
+function CallApi() {
+    useEffect(() => {
+        if (!document.getElementById("vk-openapi")) {
+            const script = document.createElement("script");
+    
+            script.type = "text/javascript";
+            script.id = "vk-openapi";
+            script.src = `https://vk.com/js/api/openapi.js?168`;
+            script.async = true;
+    
+            document.head.appendChild(script);
+        }
+    }, [])
+    return null
+}
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <VK>
+            <App />
+        </VK>
     </React.StrictMode>,
     document.getElementById("root")
 );
